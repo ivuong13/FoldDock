@@ -1060,8 +1060,10 @@ def neg_vs_pos(plDDT_marks_af, plDDT_marks_negative_af, plDDT_negatome_af, sigmo
         #Plot ROC
         plt.plot(fpr, tpr, label = feature_nice_names[key]+': AUC = %0.2f' % roc_auc, color=colors[key])
         #TPRs
-        print(key,'TPR at FPR 1%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.01)[-1][0]]))
-        print(key,'TPR at FPR 5%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.05)[-1][0]]))
+        #print(key,'TPR at FPR 1%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.01)[-1][0]]))
+        #print(key,'TPR at FPR 5%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.05)[-1][0]]))
+        print(key,'TPR at FPR 1%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.01).loc[:,(-1,0)]]))
+        print(key,'TPR at FPR 5%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.05).loc[:,(-1,0)]]))
 
     #Add log(if contacts)*if_plddt_av
     pos_features_if_cp = plDDT_marks_af['if_plddt_av_1'].values*np.log10(plDDT_marks_af['num_atoms_in_interface_1'].values+1)
@@ -1088,8 +1090,10 @@ def neg_vs_pos(plDDT_marks_af, plDDT_marks_negative_af, plDDT_negatome_af, sigmo
     roc_auc = metrics.auc(fpr, tpr)
     plt.plot(fpr, tpr, label = 'pDockQ'+': AUC = %0.2f' % roc_auc,color='k',linestyle='--')
     #TPRs
-    print('pDockQ TPR at FPR 1%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.01)[-1][0]]))
-    print('pDockQ TPR at FPR 5%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.05)[-1][0]]))
+    #print('pDockQ TPR at FPR 1%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.01)[-1][0]]))
+    #print('pDockQ TPR at FPR 5%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.05)[-1][0]]))
+    print('pDockQ TPR at FPR 1%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.01).loc[:,(-1,0)]]))
+    print('pDockQ TPR at FPR 5%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=0.05).loc[:,(-1,0)]]))
     #Plot formatting
     plt.plot([0,1],[0,1],linewidth=1,linestyle='--',color='grey')
     plt.legend(fontsize=9)
@@ -1112,9 +1116,11 @@ def neg_vs_pos(plDDT_marks_af, plDDT_marks_negative_af, plDDT_negatome_af, sigmo
     roc_auc = metrics.auc(fpr, tpr)
 
     t=0.01
-    print('Average interface pDockQ TPR at FPR '+str(t*100)+'%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2),'\nAUC:',roc_auc, 'FPR:',np.round(100*fpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2))
+    #print('Average interface pDockQ TPR at FPR '+str(t*100)+'%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2),'\nAUC:',roc_auc, 'FPR:',np.round(100*fpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2))
+    print('Average interface pDockQ TPR at FPR '+str(t*100)+'%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=t).loc[:,(-1,0)]],2),'\nAUC:',roc_auc, 'FPR:',np.round(100*fpr[np.argwhere(np.round(fpr,2)<=t).loc[:,(-1,0)]],2))
     t=0.05
-    print('Average interface pDockQ TPR at FPR '+str(t*100)+'%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2),'\nAUC:',roc_auc, 'FPR:',np.round(100*fpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2))
+    #print('Average interface pDockQ TPR at FPR '+str(t*100)+'%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2),'\nAUC:',roc_auc, 'FPR:',np.round(100*fpr[np.argwhere(np.round(fpr,2)<=t)[-1][0]],2))
+    print('Average interface pDockQ TPR at FPR '+str(t*100)+'%=',np.round(100*tpr[np.argwhere(np.round(fpr,2)<=t).loc[:,(-1,0)]],2),'\nAUC:',roc_auc, 'FPR:',np.round(100*fpr[np.argwhere(np.round(fpr,2)<=t).loc[:,(-1,0)]],2))
 
     #Plot distribution of separators
     feature_nice_names = {'if_plddt_av':'IF_plDDT', 'num_atoms_in_interface':'IF_contacts',
