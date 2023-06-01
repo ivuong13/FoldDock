@@ -700,7 +700,7 @@ def real_features_marks(marks_dockq_AF, dssp_marks, ifstats_marks, aln_scores_ma
         success=np.argwhere(sel.top_ranked_model_DockQ_af2.values>=0.23).shape[0]/len(sel)
         print(ss_classes[i],'success rate',np.round(success,3),'over',len(sel),'structures')
         #
-        sns.distplot(sel.top_ranked_model_DockQ_af2,label=ss_classes[i]+' : '+str(np.round(100*success,1))+' % successful',hist=False)
+        sns.displot(sel.top_ranked_model_DockQ_af2,label=ss_classes[i]+' : '+str(np.round(100*success,1))+' % successful',hist=False)
     plt.title('DockQ and SS for the test set')
     plt.xlabel('DockQ')
     plt.ylabel('Density')
@@ -794,7 +794,7 @@ def marks_dockq_per_org(marks_dockq_AF, oxstats_marks, ifstats_marks, aln_scores
             org = 'S.cerevisiae'
         if org =='Escherichia coli':
             org = 'E.coli'
-        sns.distplot(sel_scores,label=org+' : '+str(np.round(sr*100,1))+' % successful',hist=False)
+        sns.displot(sel_scores,label=org+' : '+str(np.round(sr*100,1))+' % successful',hist=False)
 
 
     plt.title('DockQ per organism for the test set')
@@ -830,9 +830,9 @@ def marks_dockq_per_kingdom(marks_dockq_AF, oxstats_marks, AFneffs_marks, topnef
             if var=='top_ranked_model_DockQ_af2':
                 sr = np.argwhere(sel_scores>=0.23).shape[0]/len(sel_scores)
                 print('Success rate for',kd,sr,len(sel_scores))
-                sns.distplot(sel_scores,label=kd+' : '+str(np.round(sr*100,1))+' % successful',hist=False)
+                sns.displot(sel_scores,label=kd+' : '+str(np.round(sr*100,1))+' % successful',hist=False)
             else:
-                sns.distplot(sel_scores,label=kd,hist=False)
+                sns.displot(sel_scores,label=kd,hist=False)
 
 
         plt.title(nice_labels[var]+' per kingdom for the test set')
@@ -882,7 +882,7 @@ def marks_dockq_vs_aln_overlap(marks_dockq_AF, af_chain_overlap_marks, outdir):
     plt.close()
     #Plot overlap distribution
     fig,ax = plt.subplots(figsize=(12/2.54,12/2.54))
-    sns.distplot(merged.Overlap)
+    sns.displot(merged.Overlap)
     plt.title('Chain overlap distribution in AF2 msas')
     plt.xlabel('Overlap fraction')
     plt.ylabel('Density')
@@ -1000,8 +1000,8 @@ def dev_vs_test(marks_dockq_AF, oxstats_marks, ifstats_marks, aln_scores_marks, 
     vars = ['num_if_contacts_total', 'min_chain_len','max_chain_len', 'sum_chain_len', 'AFdefault_Neff' ,'tophit_Neff','if_fraction']
     for var in vars:
         fig,ax = plt.subplots(figsize=(12/2.54,12/2.54))
-        sns.distplot(bench4_merged[var],label='Dev. set',hist=True,kde=True,norm_hist=True)
-        sns.distplot(marks_merged[var],label='Test. set',hist=True,kde=True,norm_hist=True)
+        sns.displot(bench4_merged[var],label='Dev. set',hist=True,kde=True,norm_hist=True)
+        sns.displot(marks_merged[var],label='Test. set',hist=True,kde=True,norm_hist=True)
         plt.legend()
         plt.title('Dev. vs Test '+var)
         plt.xlabel(var)
